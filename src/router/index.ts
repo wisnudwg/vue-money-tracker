@@ -12,6 +12,8 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   if (!['login', 'register'].includes(to.name as string) && (!Authorization || !Uid)) {
     next({ name: 'login' });
+  } else if (['login', 'register'].includes(to.name as string) && (Authorization && Uid)) {
+    next({ name: (from.name as string) });
   } else {
     next();
   };
