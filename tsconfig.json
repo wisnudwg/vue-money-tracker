@@ -1,0 +1,32 @@
+{
+  "files": [],
+  "include": [
+    "./.dot/**/*.vue",
+    "./dot/**/*.vue",
+    "./src/**/*.vue"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    },
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.vitest.json"
+    }
+  ],
+  "compilerOptions": {
+    /* "module": "NodeNext", */
+    "lib": ["ES2021.String"],
+    "module": "ES2015",
+    "moduleResolution": "Bundler",
+    "paths": {
+      "@/*": [
+        "./src/*",
+        "./*",
+      ]
+    },
+    "target": "ES2015"
+  }
+}

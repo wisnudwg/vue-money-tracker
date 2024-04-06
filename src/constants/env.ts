@@ -1,0 +1,1 @@
+export const EP = 'http://localhost:8080/';
