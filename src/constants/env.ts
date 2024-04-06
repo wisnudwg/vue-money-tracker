@@ -1,7 +1,1 @@
-// const dotenv = require('dotenv');
-// const config = dotenv.config();
-// if (config.error) {
-//   console.log(config.error)
-// }
-
-export const EP = 'http://localhost:8080/';
+export const EP = import.meta.env.VITE_APP_EP; // 'http://localhost:8080/';
