@@ -6,7 +6,7 @@ import AuthLayout from '@/components/layouts/AuthLayout.vue';
 
 import router from '@/router';
 
-import { userMethods } from '@/stores/user';
+import { userMethods, userStates } from '@/stores/user';
 
 import type { UserLogin } from '@/types';
 
@@ -15,6 +15,7 @@ const { Password: InputPassword } = Input;
 
 // STORE
 const { login } = userMethods;
+const { loginLoading } = userStates;
 
 interface FormState {
   email: string,
@@ -73,7 +74,7 @@ const gotoRegister = () => {
         <FormItem
           :wrapper-col="{ offset: 0, span: 24 }"
         >
-          <Button id="LoginBtn" type="primary" html-type="submit">Login</Button>
+          <Button id="LoginBtn" type="primary" html-type="submit" :loading="loginLoading">Login</Button>
         </FormItem>
       </Form>
       <p class="auth-footer-p">

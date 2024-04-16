@@ -22,7 +22,11 @@ const useStore = defineStore(storeName, () => {
   const password = ref(localStorage.getItem("password") || '');
   const currency = ref(localStorage.getItem("currency") || '');
 
+  const loginLoading = ref(false);
+  const registerLoading = ref(false);
+
   async function login(formValues: UserLogin) {
+    loginLoading.value = true;
     axios.post(`${EP}login`, formValues, { headers: {} })
       .then((res) => {
         token.value = res.data.token; localStorage.setItem("Authorization", res.data.token);
@@ -33,9 +37,13 @@ const useStore = defineStore(storeName, () => {
         password.value = formValues.password; localStorage.setItem("password", formValues.password);
         currency.value = 'Rp.'; localStorage.setItem("currency", 'Rp.');
 
-        router.push({ path: '/daily' });
+        setTimeout(() => {
+          loginLoading.value = false;
+          router.push({ path: '/daily' });
+        }, 500)
       })
       .catch((err) => {
+        loginLoading.value = false;
         notification.error({
           message: err.response.data.error.Number || 'Error',
           description: err.response.data.error.Message || err.response.data.error,
@@ -43,15 +51,18 @@ const useStore = defineStore(storeName, () => {
       })
   };
   async function register(formValues: User) {
+    registerLoading.value = true;
     axios.post(`${EP}register`, formValues, { headers: {} })
       .then(() => {
         notification.success({
           message: 'Registration Success!',
           description: 'You can now login',
         })
+        registerLoading.value = false;
         router.push({ path: '/login' });
       })
       .catch((err) => {
+        registerLoading.value = false;
         notification.error({
           message: err.response.data.error.Number || 'Error',
           description: err.response.data.error.Message || err.response.data.error,
@@ -86,6 +97,9 @@ const useStore = defineStore(storeName, () => {
     email,
     password,
     currency,
+
+    loginLoading,
+    registerLoading,
 
     register,
     login,

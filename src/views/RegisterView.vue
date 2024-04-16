@@ -6,7 +6,7 @@ import AuthLayout from '@/components/layouts/AuthLayout.vue';
 
 import router from '@/router';
 
-import { userMethods } from '@/stores/user';
+import { userMethods, userStates } from '@/stores/user';
 
 import type { User } from '@/types';
 
@@ -16,6 +16,7 @@ const { error: NotifError } = notification;
 
 // STORE
 const { register } = userMethods;
+const { registerLoading } = userStates;
 
 interface FormState {
   name: string,
@@ -97,7 +98,7 @@ const gotoLogin = () => {
         <FormItem
           :wrapper-col="{ offset: 0, span: 24 }"
         >
-          <Button id="RegisterBtn" type="primary" html-type="submit">Register</Button>
+          <Button id="RegisterBtn" type="primary" html-type="submit" :loading="registerLoading">Register</Button>
         </FormItem>
       </Form>
       <p class="auth-footer-p">

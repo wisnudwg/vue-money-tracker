@@ -48,7 +48,7 @@ const useStore = defineStore(storeName, () => {
       try {
         axios.post(`${EP}get-entries`, { datestring }, { headers: { Authorization, Uid }})
           .then(res => {
-            const datestrings = [... new Set(res.data.entries.map((entry: any) => entry.datestring))];
+            const datestrings = [... new Set(res.data.entries.map((entry: any) => entry.datestring))].reverse();
             const dailyEntries = datestrings.map((ds: any) => ({
               datestring: ds,
               entries: res.data.entries.filter((entry: any) => entry.datestring === ds).reverse(),
