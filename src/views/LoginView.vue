@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
-import { Button, Checkbox, Form, Input } from 'ant-design-vue';
+import { Button, Checkbox, Form, Input, Spin } from 'ant-design-vue';
 
 import AuthLayout from '@/components/layouts/AuthLayout.vue';
 
@@ -74,7 +74,7 @@ const gotoRegister = () => {
         <FormItem
           :wrapper-col="{ offset: 0, span: 24 }"
         >
-          <Button id="LoginBtn" type="primary" html-type="submit" :loading="loginLoading">Login</Button>
+          <Button id="LoginBtn" type="primary" html-type="submit" :disabled="loginLoading"><Spin :hidden="!loginLoading" /> Login</Button>
         </FormItem>
       </Form>
       <p class="auth-footer-p">
@@ -126,6 +126,10 @@ const gotoRegister = () => {
     width: 100%;
     &:hover {
       opacity: .5;
+    }
+    &:disabled {
+      cursor: default;
+      opacity: 0.5;
     }
   }
 }
