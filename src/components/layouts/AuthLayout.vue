@@ -28,8 +28,8 @@ const props = withDefaults(defineProps<Props>(), {
   background-color: transparent;
   #Content {
     padding: 25vh 25vw;
-    /* overflow: hidden;
-    background-color: transparent;
+    overflow: hidden;
+    /* background-color: transparent;
     border-radius: 10px;
     padding: 20px;
     position: absolute;
