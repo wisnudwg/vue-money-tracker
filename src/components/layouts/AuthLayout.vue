@@ -25,15 +25,21 @@ const props = withDefaults(defineProps<Props>(), {
 
 <style lang="less">
 #AuthLayout {
+  background-color: transparent;
   #Content {
-    // background-color: lightgreen;
+    padding: 25vh 25vw;
+    /* overflow: hidden;
+    background-color: transparent;
     border-radius: 10px;
     padding: 20px;
     position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
+    left: 25vw;
+    right: 25vw;
+    top: 25vh;
+    bottom: 0;
+    margin: auto;
     transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%); */
     .btn {
       font-size: 16px;
       width: 100%;

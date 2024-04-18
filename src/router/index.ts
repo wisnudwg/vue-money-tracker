@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import routes from './routes'
 
 import { userStates } from '@/stores/user';
-const { id: { value: Uid }, token: { value: Authorization } } = userStates;
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,6 +9,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  const { id: { value: Uid }, token: { value: Authorization } } = userStates;
   if (!['login', 'register'].includes(to.name as string) && (!Authorization || !Uid)) {
     next({ name: 'login' });
   } /* else if (['login', 'register'].includes(to.name as string) && (Authorization && Uid)) {

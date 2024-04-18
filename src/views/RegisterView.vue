@@ -113,7 +113,6 @@ const gotoLogin = () => {
   background-color: white;
   border-radius: 10px;
   padding: 5vh 5vw;
-  width: 40vw;
   .ant-input, .ant-input-affix-wrapper {
     .ant-input {
       border: none;
