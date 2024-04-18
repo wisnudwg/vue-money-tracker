@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
-import { Button, Checkbox, Form, Input, Spin } from 'ant-design-vue';
+import { Button, Checkbox, Form, Image, Input, Spin } from 'ant-design-vue';
+
+import logo from '@/assets/money_tracker_logo.svg';
 
 import AuthLayout from '@/components/layouts/AuthLayout.vue';
 
@@ -79,6 +81,8 @@ const gotoRegister = () => {
       </Form>
       <p class="auth-footer-p">
         Don&apos;t have an account yet? <span class="actionable-span" @click="gotoRegister">Register Here</span>
+        <br /><br />
+        <Image :src="logo" alt="" :width="100" :preview="false" />
       </p>
     </template>
   </AuthLayout>

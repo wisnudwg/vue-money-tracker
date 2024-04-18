@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { defineProps, onBeforeMount, withDefaults } from 'vue';
-import { Col, FloatButton, Layout, Row } from 'ant-design-vue';
+import { Col, FloatButton, Image, Layout, Row, Space } from 'ant-design-vue';
 import { PlusOutlined } from '@ant-design/icons-vue';
+
+import logo from '@/assets/money_tracker_logo.svg';
 
 import DatePicker from '@/components/atoms/DatePicker.vue';
 import ModalAddEditEntry from '../groups/ModalAddEditEntry.vue';
@@ -70,10 +72,16 @@ onBeforeMount(() => {
     <Header id="Header">
       <Row :gutter="[16, 16]" :align="'middle'">
         <Col :flex="1" v-if="router.currentRoute.value.name !== 'chart'">
-          <DatePicker :allowFormatChange="false" :defaultValue="dpDate" :format="(dpFormat as any)" @change="changeDate" @changeFormat="changeDpFormat" />
+          <Space size="large">
+            <Image :src="logo" alt="" :width="40" :preview="false" />
+            <DatePicker :allowFormatChange="false" :defaultValue="dpDate" :format="(dpFormat as any)" @change="changeDate" @changeFormat="changeDpFormat" />
+          </Space>
         </Col>
         <Col :flex="1" v-if="router.currentRoute.value.name === 'chart'">
-          <RangePicker :allowFormatChange="true" :defaultValues="(rpDates as any)" :format="(rpFormat as any)" @change="changeRange" @changeFormat="changeRpFormat" />
+          <Space size="large">
+            <Image :src="logo" alt="" :width="40" :preview="false" />
+            <RangePicker :allowFormatChange="true" :defaultValues="(rpDates as any)" :format="(rpFormat as any)" @change="changeRange" @changeFormat="changeRpFormat" />
+          </Space>
         </Col>
         <Col :flex="1" style="text-align: right;">
           <span style="color: #FFFFFF; font-size: 16px; font-weight: 600;">{{ name }}</span>&nbsp;&nbsp;
