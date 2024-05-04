@@ -10,7 +10,7 @@ import ModalDeleteEntry from '@/components/groups/ModalDeleteEntry.vue';
 import { addEditEntryMethods } from '@/stores/add-edit-entry';
 import { deleteEntryMethods } from '@/stores/delete-entry';
 
-import { EntryPayload } from '@/types';
+import type { EntryPayload } from '@/types';
 
 import { formatTime } from '@/utils/date';
 import { fromPartialEntry } from '@/utils/entry';

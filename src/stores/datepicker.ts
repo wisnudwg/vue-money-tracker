@@ -11,7 +11,7 @@ const useStore = defineStore(storeName, () => {
   const { fetchData } = dataMethods;
 
   const format = ref(localStorage.getItem(LS.LOCATION) === 'annual' ? 'year' : 'month');
-  function changeFormat(unit: 'month' | 'year') {
+  function changeFormat(unit: 'month' | 'year' | string) {
     format.value = unit;
   };
   const date = ref(dayjs(JSON.parse(localStorage.getItem(LS.DATEPICKER_VALUE) as any) || new Date()));
@@ -37,7 +37,7 @@ const useStore = defineStore(storeName, () => {
 
   return {
     format,
-    changeFormat,
+    changeFormat: changeFormat,
     date,
     datestring,
     increaseDate,

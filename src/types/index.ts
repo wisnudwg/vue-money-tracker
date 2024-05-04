@@ -56,3 +56,12 @@ export interface UserLogin {
   password: string,
   remember?: boolean,
 }
+
+
+
+
+
+const datepickerChangeFormatFunc = (arg: "month" | "year" | string) => { console.log(arg); return }
+export type DatepickerChangeFormatFunc = typeof datepickerChangeFormatFunc
+const rangepikcerChangeFormatFunc = (arg: "day" | "month" | "year" | string) => { console.log(arg); return }
+export type RangepickerChangeFormatFunc = typeof rangepikcerChangeFormatFunc

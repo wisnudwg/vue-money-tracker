@@ -70,24 +70,24 @@ onBeforeMount(() => {
 <template>
   <Layout :id="props.id">
     <Header id="Header">
-      <Row :gutter="[16, 16]" :align="'middle'">
-        <Col :flex="1" v-if="router.currentRoute.value.name !== 'chart'">
-          <Space size="large">
-            <Image :src="logo" alt="" :width="40" :preview="false" />
-            <DatePicker :allowFormatChange="false" :defaultValue="dpDate" :format="(dpFormat as any)" @change="changeDate" @changeFormat="changeDpFormat" />
-          </Space>
-        </Col>
-        <Col :flex="1" v-if="router.currentRoute.value.name === 'chart'">
-          <Space size="large">
-            <Image :src="logo" alt="" :width="40" :preview="false" />
-            <RangePicker :allowFormatChange="true" :defaultValues="(rpDates as any)" :format="(rpFormat as any)" @change="changeRange" @changeFormat="changeRpFormat" />
-          </Space>
-        </Col>
-        <Col :flex="1" style="text-align: right;">
-          <span style="color: #FFFFFF; font-size: 16px; font-weight: 600;">{{ name }}</span>&nbsp;&nbsp;
-          <span><ProfileMenuIcon /></span>
-        </Col>
-      </Row>
+      <Space class="left-section-sm" v-if="router.currentRoute.value.name !== 'chart'">
+        <DatePicker :allowFormatChange="false" :defaultValue="dpDate" :format="(dpFormat as any)" @change="changeDate" @changeFormat="changeDpFormat" />
+      </Space>
+      <Space class="left-section-sm" v-if="router.currentRoute.value.name === 'chart'">
+        <RangePicker :allowFormatChange="true" :defaultValues="(rpDates as any)" :format="(rpFormat as any)" @change="changeRange" @changeFormat="changeRpFormat" />
+      </Space>
+      <Space class="left-section-lg" direction="horizontal" size="large" v-if="router.currentRoute.value.name !== 'chart'">
+        <Image :src="logo" alt="" :width="40" :preview="false" />
+        <DatePicker :allowFormatChange="false" :defaultValue="dpDate" :format="(dpFormat as any)" @change="changeDate" @changeFormat="changeDpFormat" />
+      </Space>
+      <Space class="left-section-lg" direction="horizontal" size="large" v-if="router.currentRoute.value.name === 'chart'">
+        <Image :src="logo" alt="" :width="40" :preview="false" />
+        <RangePicker :allowFormatChange="true" :defaultValues="(rpDates as any)" :format="(rpFormat as any)" @change="changeRange" @changeFormat="changeRpFormat" />
+      </Space>
+      <Space direction="horizontal" size="large">
+        <span id="NameInHeader">{{ name }}</span>&nbsp;&nbsp;
+        <span><ProfileMenuIcon /></span>
+      </Space>
     </Header>
     <Layout>
       <Header id="Subheader">
@@ -105,13 +105,13 @@ onBeforeMount(() => {
         <Header id="PageHeader">
           <Row :gutter="[16, 16]">
             <Col :flex="1" class="income">
-              Income : <span class="total">{{ formatNumber(props.income) }}</span>
+              <span class="label">Income : </span><span class="total">{{ formatNumber(props.income) }}</span>
             </Col>
             <Col :flex="1" class="expense">
-              Expense : <span class="total">{{ formatNumber(props.expense) }}</span>
+              <span class="label">Expense : </span><span class="total">{{ formatNumber(props.expense) }}</span>
             </Col>
             <Col :flex="1" class="balance">
-              Total : <span class="total">{{ formatNumber(props.total) }}</span>
+              <span class="label">Total : </span><span class="total">{{ formatNumber(props.total) }}</span>
             </Col>
           </Row>
         </Header>
@@ -138,11 +138,37 @@ onBeforeMount(() => {
   top: 0;
   left: 0;
   width: 100%;
-  
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 30px;
+  @media screen and (min-width: 501px) {
+    padding: 0 50px;
+    .left-section-sm {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 500px) {
+    padding: 0 10px;
+    .left-section-lg {
+      display: none;
+    }
+  }
+  #NameInHeader {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 600;
+    @media screen and (max-width: 500px) {
+      display: none;
+    }
+  }
 }
 #Subheader {
   background-color: lightgray;
   width: 100%;
+  @media screen and (max-width: 500px) {
+    padding: 0 10px;
+  }
   .ant-col {
     text-align: center;
     .dashboard-nav {
@@ -162,6 +188,15 @@ onBeforeMount(() => {
 #PageHeader {
   background-color: #FFFFFF;
   width: 100%;
+  @media screen and (max-width: 500px) {
+    padding: 0 10px;
+    .total {
+      font-size: 14px;
+    }
+    .label {
+      display: none;
+    }
+  }
   .ant-col {
     text-align: center;
   }

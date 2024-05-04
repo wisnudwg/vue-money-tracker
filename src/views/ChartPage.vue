@@ -95,9 +95,11 @@ onBeforeMount(() => {
   }
   .pie-chart {
     padding: 0px !important;
-    margin: 0 5vw !important;
-    height: 70vh !important;
-    width: 70vh !important;
+    @media screen and (min-width: 501px) {
+      margin: 0 5vw !important;
+      height: 70vh !important;
+      width: 70vh !important;
+    }
   }
   .loading-container {
     text-align: center;

@@ -11,7 +11,7 @@ const useStore = defineStore(storeName, () => {
   const { fetchData } = dataMethods;
   
   const format = ref(localStorage.getItem(LS.RANGEPICKER_FORMAT) || 'month');
-  function changeFormat(unit: 'day' | 'month' | 'year') {
+  function changeFormat(unit: 'day' | 'month' | 'year' | string) {
     localStorage.setItem(LS.RANGEPICKER_FORMAT, unit);
     format.value = unit;
   };

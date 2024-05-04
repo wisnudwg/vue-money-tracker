@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, defineProps, defineEmits, ref, withDefaults } from 'vue';
 import { DatePicker, Select } from 'ant-design-vue';
+import type { SelectValue } from 'ant-design-vue/es/select';
 import dayjs, { Dayjs } from 'dayjs';
 
 import { dataMethods } from '@/stores/data';
@@ -44,7 +45,7 @@ const datestrings = computed(() => {
   const out = dates.value
     .map(dt => new Date(dt as any).toLocaleDateString('en', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' }))
     .map(ds => {
-      const [day, month, date, year] = ds.replaceAll(',','').split(' ');
+      const [day, month, date, year] = ds.split(",").join("").split(' ');
       return `${day} ${date} ${month} ${year}`
     });
   fetchData(out);
@@ -52,8 +53,16 @@ const datestrings = computed(() => {
 });
 
 // METHODS
-const handleRangeChange = (newDates: [Dayjs, Dayjs]) => { dates.value = newDates; _change() };
-const handleFormatChange = (newFormat: 'day' | 'month' | 'year') => { format.value = newFormat; _changeFormat() };
+const handleRangeChange = (newDates: [string, string] | [Dayjs, Dayjs]) => {
+  dates.value = newDates;
+  _change()
+};
+const handleFormatChange = (newFormat: 'day' | 'month' | 'year' | SelectValue) => {
+  if (newFormat === "day" || newFormat === "month" || newFormat === "year") {
+    format.value = newFormat;
+  }
+  _changeFormat()
+};
 
 // EMITS
 const emit = defineEmits<{
@@ -65,18 +74,48 @@ const _changeFormat = () => { emit('changeFormat', format.value) };
 </script>
 
 <template>
-  <RangePicker
-    :allowClear="false"
-    @change="handleRangeChange"
-    :value="dates"
-    :picker="(props.format as any)"
-    :format="displayFormat"
-  />
-  <span v-if="props.allowFormatChange">&nbsp;&nbsp;</span>
-  <Select v-if="props.allowFormatChange" :value="format" @change="handleFormatChange">
-    <Option v-for="opt in formatOptions" :value="opt.value" v-bind:key="opt.value">{{ opt.label }}</Option>
-  </Select>
+  <div id="RangepickerWrapper">
+    <RangePicker
+      :allowClear="false"
+      @change="handleRangeChange"
+      :value="dates"
+      :picker="(props.format as any)"
+      :format="displayFormat"
+    />
+    <span v-if="props.allowFormatChange">&nbsp;&nbsp;</span>
+    <Select v-if="props.allowFormatChange" :value="format" @change="handleFormatChange">
+      <Option v-for="opt in formatOptions" :value="opt.value" v-bind:key="opt.value">{{ opt.label }}</Option>
+    </Select>
+  </div>
 </template>
 
 <style lang="less">
+#RangepickerWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  @media screen and (max-width: 500px) {
+    .ant-picker {
+      input {
+        font-size: 12px !important;
+      }
+    }
+    .ant-select-selector {
+      height: 30px;
+      .ant-select-selection-item {
+        font-size: 12px !important;
+      }
+    }
+  }
+}
+.ant-picker-panels {
+  @media screen and (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+    .ant-picker-header {
+      border-top: 4px solid green;
+      border-bottom: 1px solid lightgreen;
+    }
+  }
+}
 </style>

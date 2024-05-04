@@ -15,7 +15,7 @@ notification.config({ duration: 5 })
 const storeName = 'user';
 const useStore = defineStore(storeName, () => {
   const token = ref(localStorage.getItem("Authorization") || '');
-  const id = ref(localStorage.getItem("id") || 0);
+  const id = ref(Number(localStorage.getItem("id")) || 0);
   const name = ref(localStorage.getItem("name") || '');
   const phone = ref(localStorage.getItem("phone") || '');
   const email = ref(localStorage.getItem("email") || '');
@@ -72,10 +72,10 @@ const useStore = defineStore(storeName, () => {
   async function updateUser(formValues: User) {
     axios.put(`${EP}update-user`, formValues , { headers: { "Authorization": token.value, "Uid": id.value } })
       .then(() => {
-        name.value = formValues.name;
-        phone.value = formValues.phone;
-        email.value = formValues.email;
-        password.value = formValues.password;
+        name.value = formValues.name; localStorage.setItem("name", formValues.name);
+        phone.value = formValues.phone; localStorage.setItem("phone", formValues.phone);
+        email.value = formValues.email; localStorage.setItem("email", formValues.email);
+        password.value = formValues.password; localStorage.setItem("password", formValues.password);
         notification.success({
           message: 'Update Success!',
           description: 'User data has been updated'

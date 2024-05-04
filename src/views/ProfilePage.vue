@@ -126,8 +126,12 @@ const onBackLink = () => {
 
 <style lang="less">
 #ProfilePage {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
   #ProfilePageHeader {
     background-color: green;
+    width: 100vw;
     #BackLink {
       color: #FFFFFF;
       font-weight: 600;
@@ -138,15 +142,18 @@ const onBackLink = () => {
       }
     }
   }
+  #ProfilePageContent {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333333;
+  }
   #ProfileFormContainer {
     background-color: lightgreen;
     border-radius: 10px;
     padding: 20px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    min-width: 300px;
     #UpdateBtn {
       background-color: green;
       color: white;

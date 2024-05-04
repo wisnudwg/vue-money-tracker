@@ -4,7 +4,7 @@ import { Col, Empty, Row, Table } from 'ant-design-vue';
 
 import DailyTable from '@/components/groups/DailyTable.vue';
 
-import { Entries } from '@/types';
+import type { Entries } from '@/types';
 
 import { formatNumber } from '@/utils/number';
 
@@ -129,9 +129,18 @@ const data = computed(() => {
       background-color: green;
       color: white;
     }
+    .ant-table-expanded-row {
+      .ant-table-bordered {
+        margin-block: 1px !important;
+        margin-inline: 3px !important;
+      }
+    }
     .ant-table-expanded-row > .ant-table-cell{
       background-color: lightgreen;
       padding: 25px 50px;
+      @media screen and (max-width: 500px) {
+        padding: 10px 0;
+      }
     }
   }
 }

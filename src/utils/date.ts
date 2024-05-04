@@ -19,7 +19,7 @@ export const formatDate = (millisecond: number) => {
   try {
     const date = new Date(millisecond);
     const dayName = date.toLocaleString('en', { weekday: 'short' });
-    const fullDate = date.toLocaleString('id', { day: '2-digit', month: 'short', year: 'numeric' });
+    const fullDate = date.toLocaleString('id', { day: '2-digit', month: 'short', year: 'numeric' }).replace("Mei", "May").replace("Agu", "Aug").replace("Okt", "Oct").replace("Des", "Dec");
     output = `${dayName} ${fullDate}`
   } catch (err) {
     output = `${millisecond}`;

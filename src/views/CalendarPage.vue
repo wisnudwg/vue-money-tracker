@@ -10,6 +10,7 @@ import { datepickerStates } from '@/stores/datepicker';
 
 import { formatDate } from '@/utils/date';
 import { formatNumber } from '@/utils/number';
+import type { Entry } from '@/types';
 
 // STORE
 const { data, loading } = dataStates;
@@ -19,12 +20,12 @@ const { date, datestring } = datepickerStates;
 // STATE
 const openDrawer = ref(false);
 const drawerDatestring = ref("");
-const drawerEntries = ref([]);
+const drawerEntries = ref<Entry[]>([]);
 
 // METHODS
 const onOpenDrawer = (targetDatestring: string | undefined) => {
-  drawerDatestring.value = targetDatestring;
-  drawerEntries.value = data.value.daily.find(item => item.datestring === targetDatestring)?.entries || [];
+  drawerDatestring.value = targetDatestring || "";
+  drawerEntries.value = data.value.daily.find(item => item.datestring === targetDatestring)?.entries || ([] as Entry[]);
   openDrawer.value = true;
 };
 const onCloseDrawer = () => {
@@ -77,6 +78,14 @@ onBeforeMount(() => {
 
 <style lang="less">
 #CalendarPage {
+  .ant-picker-calendar-date-value {
+    background-color: transparent;
+  }
+  .ant-picker-calendar-date-today {
+    &::before {
+      display: none;
+    } 
+  }
   .ant-picker-calendar {
     .ant-picker-calendar-header {
       display: none;
@@ -106,6 +115,7 @@ onBeforeMount(() => {
       border: 1px solid #AAAAAA;
       height: 100px;
       transition: all .3s ease-in-out;
+      overflow-x: hidden;
       &.ant-picker-cell-in-view {
         background-color: #FFFFFF;
       }
@@ -151,6 +161,9 @@ onBeforeMount(() => {
 }
 .ant-drawer-body {
   background-color: #777777 !important;
+  @media screen and (max-width: 500px) {
+    padding: 14px 0 !important;
+  }
   .ant-table {
     border-radius: 0;
     .anticon-plus-circle {

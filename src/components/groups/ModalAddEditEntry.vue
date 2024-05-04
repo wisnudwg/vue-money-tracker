@@ -21,7 +21,7 @@ const { currency } = userStates;
       <div style="margin-bottom: 10px; text-align: center">
         <Segmented
           class="operation-segmented"
-          @change="(value: string) => entry.operation = value"
+          @change="(value) => { entry.operation = (value as string) }"
           :value="entry.operation"
           :options="['income', 'expense', 'transfer'].map(v => ({ value: v, label: v }))"
         />
@@ -46,12 +46,12 @@ const { currency } = userStates;
           <td>Amount </td>
           <td>
             <InputNumber
-              @change="(value: number) => entry.amount = value"
+              @change="(value) => { entry.amount = (value as number) }"
               :value="entry.amount"
               :prefix="currency"
               :formatter="value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')"
               :parser="value => value.replace(/\$\s?|(,*)/g, '')"
-              style="width: 300px"
+              class="fw-input"
             />
           </td>
         </tr>
@@ -59,10 +59,10 @@ const { currency } = userStates;
           <td>Source </td>
           <td>
             <AutoComplete
-              @change="(value: string) => entry.source = value"
+              @change="(value) => { entry.source = (value as string) }"
               :value="entry.source"
               :options="(assets.map(e => ({ label: e, value: e })).filter(el => filterOptionOnSearch(el)(entry.source)) as any)"
-              style="width: 300px"
+              class="fw-input"
             />
           </td>
         </tr>
@@ -70,10 +70,10 @@ const { currency } = userStates;
           <td>Category</td>
           <td>
             <AutoComplete
-              @change="(value: string) => entry.category = value"
+              @change="(value) => { entry.category = (value as string) }"
               :value="entry.category"
               :options="(incomeCategories.map(e => ({ label: e, value: e })).filter(el => filterOptionOnSearch(el)(entry.category)) as any)"
-              style="width: 300px"
+              class="fw-input"
             />
           </td>
         </tr>
@@ -81,10 +81,10 @@ const { currency } = userStates;
           <td>Category </td>
           <td>
             <AutoComplete
-              @change="(value: string) => entry.category = value"
+              @change="(value) => { entry.category = (value as string) }"
               :value="entry.category"
               :options="(expenseCategories.map(e => ({ label: e, value: e })).filter(el => filterOptionOnSearch(el)(entry.category)) as any)"
-              style="width: 300px"
+              class="fw-input"
             />
           </td>
         </tr>
@@ -92,10 +92,10 @@ const { currency } = userStates;
           <td>Target </td>
           <td>
             <AutoComplete
-              @change="(value: string) => entry.target = value"
+              @change="(value) => { entry.target = (value as string) }"
               :value="entry.target"
               :options="(assets.map(e => ({ label: e, value: e })).filter(el => filterOptionOnSearch(el)(entry.target)) as any)"
-              style="width: 300px"
+              class="fw-input"
             />
           </td>
         </tr>
@@ -103,10 +103,10 @@ const { currency } = userStates;
           <td>Note </td>
           <td>
             <AutoComplete
-              @change="(value: string) => entry.note = value"
+              @change="(value) => { entry.note = (value as string) }"
               :value="entry.note"
               :options="(notes.map(e => ({ label: e, value: e })).filter(el => filterOptionOnSearch(el)(entry.note)) as any)"
-              style="width: 300px"
+              class="fw-input"
             />
           </td>
         </tr>
@@ -116,7 +116,21 @@ const { currency } = userStates;
 </template>
 
 <style lang="less">
+.fw-input {
+  width: 300px;
+  @media screen and (max-width: 500px) {
+    width: 100%;
+  }
+}
+.ant-modal-close {
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
+}
 .modal-add-edit-entry-wrapper {
+  td {
+    padding-bottom: 0px;
+  }
   .ant-segmented-thumb {
     transition: all .1s ease-in-out;
   }

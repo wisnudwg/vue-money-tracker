@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, defineEmits, defineProps, ref, withDefaults } from 'vue';
 import { Button, DatePicker, Select } from 'ant-design-vue';
+import type { SelectValue } from 'ant-design-vue/es/select';
 import dayjs, { Dayjs } from 'dayjs';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue';
 
@@ -50,10 +51,20 @@ const datestring = computed(() => {
 });
 
 // METHODS
-const handleDateChange = (newDate: Dayjs) => { date.value = newDate; _change() };
+const handleDateChange = (newDate: string | Dayjs) => {
+  if (typeof newDate !== "string") {
+    date.value = newDate;
+  }
+  _change()
+};
 const decreaseDate = () => { date.value = date.value.add(-1, props.format); _change() };
 const increaseDate = () => { date.value = date.value.add(1, props.format); _change() };
-const handleFormatChange = (newFormat: 'month' | 'year') => { format.value = newFormat; _changeFormat() };
+const handleFormatChange = (newFormat: 'month' | 'year' | SelectValue) => {
+  if (newFormat === "month" || newFormat === "year") {
+    format.value = newFormat;
+  }
+  _changeFormat()
+};
 
 // EMITS
 const emit = defineEmits<{
@@ -65,25 +76,34 @@ const _changeFormat = () => { emit('changeFormat', format.value) };
 </script>
 
 <template>
-  <Button type="ghost" class="datepicker-btn" @click="decreaseDate">
-    <LeftOutlined />
-  </Button>
-  <DatePicker
-    :allowClear="false"
-    @change="handleDateChange"
-    :value="date"
-    :picker="props.format"
-    :format="displayFormat"
-  />
-  <Button type="ghost" class="datepicker-btn" @click="increaseDate">
-    <RightOutlined />
-  </Button>
-  <Select v-if="props.allowFormatChange" :value="format" @change="handleFormatChange">
-    <Option v-for="opt in formatOptions" :value="opt.value" v-bind:key="opt.value">{{ opt.label }}</Option>
-  </Select>
+  <div id="DatepickerWrapper">
+    <Button type="ghost" class="datepicker-btn" @click="decreaseDate">
+      <LeftOutlined />
+    </Button>
+    <DatePicker
+      :allowClear="false"
+      @change="handleDateChange"
+      :value="date"
+      :picker="props.format"
+      :format="displayFormat"
+      style="height: 40px"
+    />
+    <Button type="ghost" class="datepicker-btn" @click="increaseDate">
+      <RightOutlined />
+    </Button>
+    <Select v-if="props.allowFormatChange" :value="format" @change="handleFormatChange">
+      <Option v-for="opt in formatOptions" :value="opt.value" v-bind:key="opt.value">{{ opt.label }}</Option>
+    </Select>
+  </div>
 </template>
 
 <style lang="less">
+#DatepickerWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
 .datepicker-btn {
   background-color: transparent;
   border: none;
