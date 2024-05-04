@@ -27,8 +27,12 @@ const props = withDefaults(defineProps<Props>(), {
 #AuthLayout {
   background-color: transparent;
   #Content {
-    padding: 25vh 25vw;
+    // padding: 25vh 25vw;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
     /* background-color: transparent;
     border-radius: 10px;
     padding: 20px;
@@ -40,6 +44,9 @@ const props = withDefaults(defineProps<Props>(), {
     margin: auto;
     transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%); */
+    @media screen and (max-width: 400px) {
+      padding: 5vh 5vw;
+    }
     .btn {
       font-size: 16px;
       width: 100%;
