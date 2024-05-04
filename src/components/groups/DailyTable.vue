@@ -87,7 +87,7 @@ const props = withDefaults(defineProps<Props>(), {
         </div>
       </template>
       <template v-if="column.key === 'd'">
-        <div style="text-align: center">
+        <div class="actions">
           <EditOutlined @click="() => openModalAddEditEntry(fromPartialEntry(record))" />
           &nbsp;&nbsp;&nbsp;
           <DeleteOutlined @click="() => openModalDeleteEntry(fromPartialEntry(record))"/>
@@ -132,20 +132,32 @@ const props = withDefaults(defineProps<Props>(), {
       color: #666666;
       font-size: 12px;
     }
-    .anticon-edit {
-      color: blue;
-      transform: scale(1.4);
-      transition: all .2s ease-in-out;
-      &:hover {
-        opacity: .5;
+    .actions {
+      @media screen and (min-width: 501px) {
+        text-align: center;
       }
-    }
-    .anticon-delete {
-      color: red;
-      transform: scale(1.4);
-      transition: all .2s ease-in-out;
-      &:hover {
-        opacity: .5;
+      @media screen and (max-width: 500px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .anticon-edit {
+        color: blue;
+        transform: scale(1.4);
+        transition: all .2s ease-in-out;
+        &:hover {
+          opacity: .5;
+        }
+      }
+      .anticon-delete {
+        color: red;
+        transform: scale(1.4);
+        transition: all .2s ease-in-out;
+        &:hover {
+          opacity: .5;
+        }
       }
     }
   }
